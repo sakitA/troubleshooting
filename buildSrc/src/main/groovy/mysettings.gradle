@@ -1,0 +1,11 @@
+gradle.settingsEvaluated { settings ->
+    println "Including projects in settings.gradle"
+    File rootDir = settings.rootDir
+
+    rootDir.eachDir { dir ->
+        if (dir.name != "buildSrc" && new File(dir, "build.gradle").exists()) {
+            settings.include(dir.name)
+            println "Included project: ${dir.name}"
+        }
+    }
+}
